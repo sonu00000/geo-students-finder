@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { userTypes } = require("../utils/constants");
+const locationSchema = require("../models/location.model");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -10,13 +12,17 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: {
+  userType: {
     type: String,
-    required: true,
+    default: userTypes.student,
+    enum: {
+      values: [userTypes.student, userTypes.admin],
+    },
   },
+  //address is stored as an embedded schema
   address: {
-    type: mongoose.SchemaTypes.ObjectId,
-    ref: "Point",
+    type: locationSchema,
+    required: true,
   },
 });
 
