@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { userTypes } = require("../utils/constants");
-const locationSchema = require("../models/location.model");
+const locationSchema = require("./location.schema");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
       values: [userTypes.student, userTypes.admin],
     },
   },
-  //address is stored as an embedded schema
-  address: {
+  //location is stored as an embedded schema
+  location: {
     type: locationSchema,
     required: true,
   },
